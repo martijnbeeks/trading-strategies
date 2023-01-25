@@ -1,0 +1,66 @@
+minimum_pre_commit_version: "2.15"
+repos:
+  # Generally useful pre-commits
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v4.4.0
+    hooks:
+      - id: end-of-file-fixer
+      - id: trailing-whitespace
+      - id: check-added-large-files
+  # Consistently sorts import in the same order
+  - repo: https://github.com/timothycrosley/isort
+    rev: 5.10.1
+    hooks:
+      - id: isort
+        additional_dependencies: [toml]
+  # Opiniated Python code formatter
+  - repo: https://github.com/psf/black
+    rev: 22.10.0
+    hooks:
+      - id: black
+  # Opiniated code formatter for a variety of languages and files
+  - repo: https://github.com/pre-commit/mirrors-prettier
+    rev: v3.0.0-alpha.4
+    hooks:
+      - id: prettier
+  # Python code linter
+  - repo: https://github.com/PYCQA/flake8
+    rev: 6.0.0
+    hooks:
+      - id: flake8
+        exclude: ^.venv
+        files: ^{{ cookiecutter.project_slug }}\/.*\.py$
+  # YAML linter
+  - repo: https://github.com/adrienverge/yamllint.git
+    rev: v1.28.0
+    hooks:
+      - id: yamllint
+        args: [-d relaxed]
+        verbose: true
+  # Python code style checker
+  - repo: https://github.com/pycqa/pydocstyle
+    rev: 6.1.1
+    hooks:
+      - id: pydocstyle
+        exclude: "tests/|alfa_application/models/"
+        additional_dependencies: [toml]
+  # Static type checker
+  # for args see https://mypy.readthedocs.io/en/stable/command_line.html
+  #  - repo: https://github.com/pre-commit/mirrors-mypy
+  # TODO: fix my-py, currently does not work
+  #    rev: v0.9X91
+  #    hooks:
+  #      - id: mypy
+  #        args:
+  #          [
+  #            --no-strict-optional,
+  #            --ignore-missing-imports,
+  #            --allow-untyped-globals,
+  #          ]
+  # Poetry specific pre-commit hooks
+  # TODO: fix this one, it gets stuck
+  #  - repo: https://github.com/python-poetry/poetry
+  #    rev: "1.2"
+  #    hooks:
+  #      - id: poetry-check
+  #      - id: poetry-lock
