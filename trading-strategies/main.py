@@ -111,4 +111,4 @@ def SIGNAL():
 
 bt = Backtest(data, MyStrat, cash=100, margin=1 / 10, commission=0.0)
 stat = bt.run()
-stat
+print(stat)
